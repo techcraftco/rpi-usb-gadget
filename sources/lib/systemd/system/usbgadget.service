@@ -1,0 +1,13 @@
+
+[Unit]
+Description=RPi USB Gadget
+After=network-online.target
+Wants=network-online.target
+ 
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/sbin/usbgadget.sh
+ 
+[Install]
+WantedBy=sysinit.target
