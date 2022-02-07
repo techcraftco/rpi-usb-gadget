@@ -35,15 +35,27 @@ jobs:
       - name: Build the image
         run: |-
           cp plugin/packer-builder-arm .
-          sudo packer build raspios-desktop.json || true
-          test -f raspios-desktop-2021-10-30-arm.img
-          zip raspios-desktop-2021-10-30-arm.img.zip raspios-desktop-2021-10-30-arm.img
+          sudo packer build raspios-lite-armhf.json || true
+          test -f raspios-lite-armhf-2022-01-28-armhf.img
+          zip raspios-lite-armhf-2022-01-28-armhf.img.zip raspios-lite-armhf-2022-01-28-armhf.img
       - name: Build the image
         run: |-
           cp plugin/packer-builder-arm .
-          sudo packer build raspios-lite.json || true
-          test -f raspios-lite-2021-10-30-arm.img
-          zip raspios-lite-2021-10-30-arm.img.zip raspios-lite-2021-10-30-arm.img
+          sudo packer build raspios-desktop-armhf.json || true
+          test -f raspios-desktop-armhf-2022-01-28-armhf.img
+          zip raspios-desktop-armhf-2022-01-28-armhf.img.zip raspios-desktop-armhf-2022-01-28-armhf.img
+      - name: Build the image
+        run: |-
+          cp plugin/packer-builder-arm .
+          sudo packer build raspios-lite-arm64.json || true
+          test -f raspios-lite-arm64-2022-01-28-arm64.img
+          zip raspios-lite-arm64-2022-01-28-arm64.img.zip raspios-lite-arm64-2022-01-28-arm64.img
+      - name: Build the image
+        run: |-
+          cp plugin/packer-builder-arm .
+          sudo packer build raspios-desktop-arm64.json || true
+          test -f raspios-desktop-arm64-2022-01-28-arm64.img
+          zip raspios-desktop-arm64-2022-01-28-arm64.img.zip raspios-desktop-arm64-2022-01-28-arm64.img
       - name: Get the version
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
@@ -66,8 +78,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: raspios-desktop-2021-10-30-arm.img.zip
-          asset_name: raspios-desktop-2021-10-30-arm.img.zip
+          asset_path: raspios-lite-armhf-2022-01-28-armhf.img.zip
+          asset_name: raspios-lite-armhf-2022-01-28-armhf.img.zip
           asset_content_type: application/zip
       - name: Upload release asset
         if: startsWith(github.ref, 'refs/tags/v')
@@ -76,8 +88,28 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: raspios-lite-2021-10-30-arm.img.zip
-          asset_name: raspios-lite-2021-10-30-arm.img.zip
+          asset_path: raspios-desktop-armhf-2022-01-28-armhf.img.zip
+          asset_name: raspios-desktop-armhf-2022-01-28-armhf.img.zip
+          asset_content_type: application/zip
+      - name: Upload release asset
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: raspios-lite-arm64-2022-01-28-arm64.img.zip
+          asset_name: raspios-lite-arm64-2022-01-28-arm64.img.zip
+          asset_content_type: application/zip
+      - name: Upload release asset
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: raspios-desktop-arm64-2022-01-28-arm64.img.zip
+          asset_name: raspios-desktop-arm64-2022-01-28-arm64.img.zip
           asset_content_type: application/zip
       - name: Publish release
         if: startsWith(github.ref, 'refs/tags/v')

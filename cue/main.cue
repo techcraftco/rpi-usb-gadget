@@ -5,8 +5,9 @@ package rpi
 	compactName: string
 	version:     string
 	url:         string
+	arch:        "armhf" | "arm64"
 	sha256Url:   string | *"\(url).sha256"
-	path:        string | *"\(compactName)-\(version)-arm.img"
+	path:        string | *"\(compactName)-\(version)-\(arch).img"
 	zipPath:     string | *"\(path).zip"
 }
 
@@ -70,8 +71,8 @@ workflow: {
 			},
 			{
 				name: "Get the version"
-				id:  "get_version"
-				run: "echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}"
+				id:   "get_version"
+				run:  "echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}"
 			},
 
 			{
