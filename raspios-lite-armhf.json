@@ -3,13 +3,18 @@
 		{
 			"type": "arm",
 			"file_urls": [
-				"https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-01-28/2022-01-28-raspios-bullseye-armhf-lite.zip"
+				"https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-04-07/2022-04-04-raspios-bullseye-armhf-lite.img.xz"
 			],
-			"file_checksum_url": "https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-01-28/2022-01-28-raspios-bullseye-armhf-lite.zip.sha256",
+			"file_checksum_url": "https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-04-07/2022-04-04-raspios-bullseye-armhf-lite.img.xz.sha256",
 			"file_checksum_type": "sha256",
-			"file_target_extension": "zip",
+			"file_target_extension": "xz",
+			"file_unarchive_cmd": [
+				"xz",
+				"--decompress",
+				"$ARCHIVE_PATH"
+			],
 			"image_build_method": "reuse",
-			"image_path": "raspios-lite-armhf-2022-01-28-armhf.img",
+			"image_path": "raspios-lite-armhf-2022-04-04-armhf.img",
 			"image_size": "2G",
 			"image_type": "dos",
 			"image_partitions": [
