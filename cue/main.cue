@@ -135,7 +135,8 @@ for name, image in images {
 				]
 				file_checksum_url:     image.sha256Url
 				file_checksum_type:    "sha256"
-				file_target_extension: "zip"
+				file_target_extension: "xz"
+				file_unarchive_cmd: ["xz", "--decompress", "$ARCHIVE_PATH"]
 				image_build_method:    "reuse"
 				image_path:            image.path
 				image_size:            "2G"
