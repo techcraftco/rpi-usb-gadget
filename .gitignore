@@ -1,2 +1,3 @@
 *.img
 packer-builder-arm
+.DS_Store
