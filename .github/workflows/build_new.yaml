@@ -1,0 +1,214 @@
+name: Build Images
+"on":
+  push:
+    branches:
+      - main
+    paths:
+      - cue/**
+      - sources/**
+      - '*.json'
+      - .github/workflows/*.yaml
+  pull_request: {}
+jobs:
+  create-release:
+    steps:
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Raspberry Pi OS USB Gadget ${{ steps.get_version.outputs.VERSION }}
+          body: Raspberry Pi OS Lite & Desktop with USB OTG configuration.
+          draft: true
+          prerelease: false
+    runs-on: ubuntu-latest
+  build-raspios-desktop-arm64:
+    needs: create-release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v2.1.3
+        with:
+          go-version: "1.16"
+      - name: Check out repo code
+        uses: actions/checkout@v2.3.4
+      - name: Use latest Packer
+        uses: hashicorp-contrib/setup-packer@v1
+      - name: Fetch additional packages
+        run: |-
+          sudo apt-get update
+          sudo apt-get install tree fdisk gdisk qemu-user-static libarchive-tools psmisc tar autoconf make
+      - name: Get packer-build-arm plugin
+        run: |-
+          git clone https://github.com/mkaczanowski/packer-builder-arm plugin
+          cd plugin
+          go mod download
+          go build
+      - name: Build the image
+        run: |-
+          cp plugin/packer-builder-arm .
+          sudo packer build raspios-desktop-arm64.json || true
+          test -f raspios-desktop-arm64-2022-04-04-arm64.img
+          zip raspios-desktop-arm64-2022-04-04-arm64.img.zip raspios-desktop-arm64-2022-04-04-arm64.img
+      - name: Upload release asset
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: raspios-desktop-arm64-2022-04-04-arm64.img.zip
+          asset_name: raspios-desktop-arm64-2022-04-04-arm64.img.zip
+          asset_content_type: application/zip
+      - name: Upload release asset
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: raspios-desktop-arm64-2022-04-04-arm64.img.zip
+          asset_name: raspios-desktop-arm64-2022-04-04-arm64.img.zip
+          asset_content_type: application/zip
+  build-raspios-desktop-armhf:
+    needs: create-release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v2.1.3
+        with:
+          go-version: "1.16"
+      - name: Check out repo code
+        uses: actions/checkout@v2.3.4
+      - name: Use latest Packer
+        uses: hashicorp-contrib/setup-packer@v1
+      - name: Fetch additional packages
+        run: |-
+          sudo apt-get update
+          sudo apt-get install tree fdisk gdisk qemu-user-static libarchive-tools psmisc tar autoconf make
+      - name: Get packer-build-arm plugin
+        run: |-
+          git clone https://github.com/mkaczanowski/packer-builder-arm plugin
+          cd plugin
+          go mod download
+          go build
+      - name: Build the image
+        run: |-
+          cp plugin/packer-builder-arm .
+          sudo packer build raspios-desktop-armhf.json || true
+          test -f raspios-desktop-armhf-2022-04-04-armhf.img
+          zip raspios-desktop-armhf-2022-04-04-armhf.img.zip raspios-desktop-armhf-2022-04-04-armhf.img
+      - name: Upload release asset
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: raspios-desktop-armhf-2022-04-04-armhf.img.zip
+          asset_name: raspios-desktop-armhf-2022-04-04-armhf.img.zip
+          asset_content_type: application/zip
+      - name: Upload release asset
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: raspios-desktop-armhf-2022-04-04-armhf.img.zip
+          asset_name: raspios-desktop-armhf-2022-04-04-armhf.img.zip
+          asset_content_type: application/zip
+  build-raspios-lite-arm64:
+    needs: create-release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v2.1.3
+        with:
+          go-version: "1.16"
+      - name: Check out repo code
+        uses: actions/checkout@v2.3.4
+      - name: Use latest Packer
+        uses: hashicorp-contrib/setup-packer@v1
+      - name: Fetch additional packages
+        run: |-
+          sudo apt-get update
+          sudo apt-get install tree fdisk gdisk qemu-user-static libarchive-tools psmisc tar autoconf make
+      - name: Get packer-build-arm plugin
+        run: |-
+          git clone https://github.com/mkaczanowski/packer-builder-arm plugin
+          cd plugin
+          go mod download
+          go build
+      - name: Build the image
+        run: |-
+          cp plugin/packer-builder-arm .
+          sudo packer build raspios-lite-arm64.json || true
+          test -f raspios-lite-arm64-2022-04-04-arm64.img
+          zip raspios-lite-arm64-2022-04-04-arm64.img.zip raspios-lite-arm64-2022-04-04-arm64.img
+      - name: Upload release asset
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: raspios-lite-arm64-2022-04-04-arm64.img.zip
+          asset_name: raspios-lite-arm64-2022-04-04-arm64.img.zip
+          asset_content_type: application/zip
+      - name: Upload release asset
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: raspios-lite-arm64-2022-04-04-arm64.img.zip
+          asset_name: raspios-lite-arm64-2022-04-04-arm64.img.zip
+          asset_content_type: application/zip
+  build-raspios-lite-armhf:
+    needs: create-release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v2.1.3
+        with:
+          go-version: "1.16"
+      - name: Check out repo code
+        uses: actions/checkout@v2.3.4
+      - name: Use latest Packer
+        uses: hashicorp-contrib/setup-packer@v1
+      - name: Fetch additional packages
+        run: |-
+          sudo apt-get update
+          sudo apt-get install tree fdisk gdisk qemu-user-static libarchive-tools psmisc tar autoconf make
+      - name: Get packer-build-arm plugin
+        run: |-
+          git clone https://github.com/mkaczanowski/packer-builder-arm plugin
+          cd plugin
+          go mod download
+          go build
+      - name: Build the image
+        run: |-
+          cp plugin/packer-builder-arm .
+          sudo packer build raspios-lite-armhf.json || true
+          test -f raspios-lite-armhf-2022-04-04-armhf.img
+          zip raspios-lite-armhf-2022-04-04-armhf.img.zip raspios-lite-armhf-2022-04-04-armhf.img
+      - name: Upload release asset
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: raspios-lite-armhf-2022-04-04-armhf.img.zip
+          asset_name: raspios-lite-armhf-2022-04-04-armhf.img.zip
+          asset_content_type: application/zip
+      - name: Upload release asset
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: raspios-lite-armhf-2022-04-04-armhf.img.zip
+          asset_name: raspios-lite-armhf-2022-04-04-armhf.img.zip
+          asset_content_type: application/zip

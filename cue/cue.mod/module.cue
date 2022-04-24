@@ -1,1 +1,1 @@
-module: "co.techcraft/rpi"
+module: "github.com/techcraftco/rpi-usb-gadget"
