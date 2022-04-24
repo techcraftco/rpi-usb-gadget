@@ -27,7 +27,7 @@ jobs:
           prerelease: false
     runs-on: ubuntu-latest
     outputs:
-      upload-url: steps.create-release.outputs.upload-url
+      upload-url: ${{ steps.create-release.outputs.upload-url }}
   build-raspios-desktop-arm64:
     needs: create-release
     runs-on: ubuntu-latest
