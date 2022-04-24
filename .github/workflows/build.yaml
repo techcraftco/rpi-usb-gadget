@@ -60,6 +60,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          upload_url: ${{ needs.create-release.outputs.upload-url }}
           asset_path: raspios-desktop-arm64-2022-04-04-arm64.img.zip
           asset_name: raspios-desktop-arm64-2022-04-04-arm64.img.zip
           asset_content_type: application/zip
@@ -95,6 +96,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          upload_url: ${{ needs.create-release.outputs.upload-url }}
           asset_path: raspios-desktop-armhf-2022-04-04-armhf.img.zip
           asset_name: raspios-desktop-armhf-2022-04-04-armhf.img.zip
           asset_content_type: application/zip
@@ -130,6 +132,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          upload_url: ${{ needs.create-release.outputs.upload-url }}
           asset_path: raspios-lite-arm64-2022-04-04-arm64.img.zip
           asset_name: raspios-lite-arm64-2022-04-04-arm64.img.zip
           asset_content_type: application/zip
@@ -165,6 +168,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          upload_url: ${{ needs.create-release.outputs.upload-url }}
           asset_path: raspios-lite-armhf-2022-04-04-armhf.img.zip
           asset_name: raspios-lite-armhf-2022-04-04-armhf.img.zip
           asset_content_type: application/zip
