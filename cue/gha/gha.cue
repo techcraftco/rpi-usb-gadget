@@ -82,7 +82,7 @@ test: #BuildImageWorkflow & {images: I.images}
 						},
 						{
 							name: "Upload release asset"
-							if:   "startsWith(github.ref, 'refs/tags/v')"
+							//if:   "startsWith(github.ref, 'refs/tags/v')"
 							uses: "actions/upload-release-asset@v1"
 							env: GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 							with: {
@@ -92,18 +92,7 @@ test: #BuildImageWorkflow & {images: I.images}
 								asset_content_type: "application/zip"
 							}
 						},
-						{
-							name: "Upload release asset"
-							if:   "startsWith(github.ref, 'refs/tags/v')"
-							uses: "actions/upload-release-asset@v1"
-							env: GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-							with: {
-								upload_url:         "${{ steps.create_release.outputs.upload_url }}"
-								asset_path:         "\(image.zipPath)"
-								asset_name:         "\(image.zipPath)"
-								asset_content_type: "application/zip"
-							}
-						},
+
 
 					]
 				}

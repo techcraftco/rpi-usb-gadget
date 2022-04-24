@@ -13,12 +13,11 @@ import "tool/file"
 
 command: gen: {
 
-	//let workflow = G.#BuildImagesWorkflow & {images: I.images}
 	let workflow = G.#BuildImageWorkflow & {images: I.images}
 
 	// a github workflow task
 	"workflow": file.Create & {
-		filename: "../.github/workflows/build_new.yaml"
+		filename: "../.github/workflows/build.yaml"
 		contents: yaml.Marshal(workflow.result)
 	}
 
