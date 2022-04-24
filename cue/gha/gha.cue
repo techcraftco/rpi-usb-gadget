@@ -22,6 +22,9 @@ test: #BuildImageWorkflow & {images: I.images}
 
 		jobs: {
 			"create-release": {
+				outputs: {
+					"upload-url": "${{ steps.create-release.outputs.upload_url }}"
+				}
 				steps: [ {
 					name: "Create release"
 					id:   "create-release"
@@ -37,9 +40,6 @@ test: #BuildImageWorkflow & {images: I.images}
 					}
 				},
 				]
-				// outputs: {
-				// 	"upload-url": "${{ steps.create-release.outputs.upload_url }}"
-				// }
 
 			}
 

@@ -13,6 +13,9 @@ name: Build Images
   pull_request: {}
 jobs:
   create-release:
+    outputs:
+      upload-url: ${{ steps.create-release.outputs.upload_url }}
+    runs-on: ubuntu-latest
     steps:
       - name: Create release
         id: create-release
@@ -25,7 +28,6 @@ jobs:
           body: Raspberry Pi OS Lite & Desktop with USB OTG configuration.
           draft: true
           prerelease: false
-    runs-on: ubuntu-latest
   build-raspios-desktop-arm64:
     needs: create-release
     runs-on: ubuntu-latest
