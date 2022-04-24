@@ -2,6 +2,8 @@ package gha
 
 import I "github.com/techcraftco/rpi-usb-gadget/images"
 
+import "list"
+
 test: #BuildImageWorkflow & {images: I.images}
 
 #BuildImageWorkflow: {
@@ -24,6 +26,7 @@ test: #BuildImageWorkflow & {images: I.images}
 			"create-release": {
 				outputs: {
 					"upload-url": "${{ steps.create-release.outputs.upload_url }}"
+					id: "${{steps.create-release.outputs.id}}"
 				}
 				steps: [ {
 					name: "Create release"
@@ -98,6 +101,20 @@ test: #BuildImageWorkflow & {images: I.images}
 						},
 
 
+					]
+				}
+
+				"publish-release": {
+					let buildJobs = [for name,_ in I.images {"build-\(name)"}]
+					needs: list.FlattenN(["create-release", buildJobs], 1)
+					steps: [
+						{
+							name: "Publish release"
+							if:   "startsWith(github.ref, 'refs/tags/v')"
+							uses: "StuYarrow/publish-release@v1"
+							env: GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+							with: id:          "${{ needs.create-release.outputs.id }}"
+						},
 					]
 				}
 			}

@@ -15,6 +15,7 @@ jobs:
   create-release:
     outputs:
       upload-url: ${{ steps.create-release.outputs.upload_url }}
+      id: ${{steps.create-release.outputs.id}}
     runs-on: ubuntu-latest
     steps:
       - name: Create release
@@ -28,6 +29,22 @@ jobs:
           body: Raspberry Pi OS Lite & Desktop with USB OTG configuration.
           draft: true
           prerelease: false
+  publish-release:
+    needs:
+      - create-release
+      - build-raspios-desktop-arm64
+      - build-raspios-desktop-armhf
+      - build-raspios-lite-arm64
+      - build-raspios-lite-armhf
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: StuYarrow/publish-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          id: ${{ needs.create-release.outputs.id }}
   build-raspios-desktop-arm64:
     needs: create-release
     runs-on: ubuntu-latest
