@@ -38,7 +38,7 @@ test: #BuildImageWorkflow & {images: I.images}
 				},
 				]
 				outputs: {
-					"upload-url": "${{ steps.create-release.outputs.upload-url }}"
+					"upload-url": "${{ steps.create-release.outputs.upload_url }}"
 				}
 
 			}
