@@ -7,6 +7,13 @@ _architectures: ["arm64", "armhf"]
 _distVersion: "2022-04-07"
 _version:     "2022-04-04"
 
+let sources = [
+	"/etc/dnsmasq.d/usb0",
+	"/etc/network/interfaces.d/usb0",
+	"/lib/systemd/system/usbgadget.service",
+	"/usr/local/sbin/usbgadget.sh",
+]
+
 let baseUrl = "https://downloads.raspberrypi.org"
 
 let raspios = [ for v in _variants for a in _architectures {
@@ -28,6 +35,7 @@ let raspios = [ for v in _variants for a in _architectures {
 	url:     "\(baseUrl)/\(imgDir)/images/\(imgDir)-\(_distVersion)/\(_version)-raspios-bullseye-\(arch)\(nameSuffix).img.xz"
 	shaUrl:  "\(url).sha256"
 	path:    "\(_os)-\(variant)-\(arch)-\(_version)-\(arch).img"
+	"sources": sources
 }]
 
 for i in raspios {

@@ -2,14 +2,6 @@ package packer
 
 import I "github.com/techcraftco/rpi-usb-gadget/images"
 
-// TODO: this should go in the image spec
-_sources: [
-	"/etc/dnsmasq.d/usb0",
-	"/etc/network/interfaces.d/usb0",
-	"/lib/systemd/system/usbgadget.service",
-	"/usr/local/sbin/usbgadget.sh",
-]
-
 #PackerBuild: {
 	spec: I.#ImageSpec
 	result: {
@@ -61,7 +53,7 @@ _sources: [
 				]
 			},
 
-			for _, path in _sources {
+			for _, path in spec.sources {
 				type:        "file"
 				source:      "sources/\(path)"
 				destination: path

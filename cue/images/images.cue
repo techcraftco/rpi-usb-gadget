@@ -20,4 +20,5 @@ images: [string]: #ImageSpec & {
 	path:        string
 	compactName: string
 	zipPath:     string
+	sources: [...string]
 }
