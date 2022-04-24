@@ -11,7 +11,7 @@ test: #BuildImageWorkflow & {images: I.images}
 		on: {
 			push: {
 				branches: ["main"]
-				//tags: ["v*"]
+				tags: ["v*"]
 				paths: ["cue/**", "sources/**", "*.json", ".github/workflows/*.yaml"]
 			}
 			pull_request: {}

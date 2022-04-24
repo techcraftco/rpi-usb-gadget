@@ -3,6 +3,8 @@ name: Build Images
   push:
     branches:
       - main
+    tags:
+      - v*
     paths:
       - cue/**
       - sources/**
