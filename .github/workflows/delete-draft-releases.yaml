@@ -1,0 +1,4 @@
+on:
+  schedule:
+    # Run at 02:07 every day
+    - cron:  '07 02 * * * '
