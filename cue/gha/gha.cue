@@ -90,7 +90,7 @@ test: #BuildImageWorkflow & {images: I.images}
 							uses: "actions/upload-release-asset@v1"
 							env: GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 							with: {
-								//upload_url:         "${{ jobs.create-release.outputs.upload-url }}"
+								upload_url:         "${{ needs.create-release.outputs.upload-url }}"
 								asset_path:         "\(image.zipPath)"
 								asset_name:         "\(image.zipPath)"
 								asset_content_type: "application/zip"
