@@ -24,7 +24,7 @@ test: #BuildImageWorkflow & {images: I.images}
 			"create-release": {
 				steps: [ {
 					name: "Create release"
-					id:   "create_release"
+					id:   "create-release"
 					//if:   "startsWith(github.ref, 'refs/tags/v')"
 					uses: "actions/create-release@v1"
 					env: GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
