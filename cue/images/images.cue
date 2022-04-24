@@ -21,4 +21,5 @@ images: [string]: #ImageSpec & {
 	compactName: string
 	zipPath:     string
 	sources: [...string]
+	postSteps: [...string]
 }

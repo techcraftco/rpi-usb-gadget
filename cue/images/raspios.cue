@@ -14,6 +14,16 @@ let sources = [
 	"/usr/local/sbin/usbgadget.sh",
 ]
 
+let postSteps = [
+	"sudo chmod +x /usr/local/sbin/usbgadget.sh",
+	"sudo systemctl enable usbgadget.service",
+	"echo dtoverlay=dwc2 >> /boot/config.txt",
+	"echo libcomposite >> /etc/modules",
+	"sed -i 's/$/ modules-load=dwc2/' /boot/cmdline.txt",
+	"touch /boot/ssh",
+	"echo denyinterfaces usb0 >> /etc/dhcpcd.conf",
+]
+
 let baseUrl = "https://downloads.raspberrypi.org"
 
 let raspios = [ for v in _variants for a in _architectures {
@@ -36,6 +46,7 @@ let raspios = [ for v in _variants for a in _architectures {
 	shaUrl:  "\(url).sha256"
 	path:    "\(_os)-\(variant)-\(arch)-\(_version)-\(arch).img"
 	"sources": sources
+	"postSteps": postSteps
 }]
 
 for i in raspios {

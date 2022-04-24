@@ -61,15 +61,7 @@ import I "github.com/techcraftco/rpi-usb-gadget/images"
 
 			{
 				type: "shell"
-				inline: [
-					"sudo chmod +x /usr/local/sbin/usbgadget.sh",
-					"sudo systemctl enable usbgadget.service",
-					"echo dtoverlay=dwc2 >> /boot/config.txt",
-					"echo libcomposite >> /etc/modules",
-					"sed -i 's/$/ modules-load=dwc2/' /boot/cmdline.txt",
-					"touch /boot/ssh",
-					"echo denyinterfaces usb0 >> /etc/dhcpcd.conf",
-				]
+				inline: spec.postSteps
 			},
 		]
 	}
