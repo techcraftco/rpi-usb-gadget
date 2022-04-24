@@ -23,7 +23,7 @@ I have a video showing how to burn and customize an image here:
 The easiest way to build images locally is to use the pre-built `packer-builder-arm`[pba] Docker images
 
 ```
-docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build packer-builder-arm build <build_json_path>
+docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build mkaczanowski/packer-builder-arm build <build_json_path>
 ```
 
 Replace `<build_json_path>` with any of the image definition files in the root directory.
