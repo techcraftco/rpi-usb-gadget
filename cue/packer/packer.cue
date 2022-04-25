@@ -26,7 +26,7 @@ import I "github.com/techcraftco/rpi-usb-gadget/images"
 						start_sector: "8192"
 						filesystem:   "vfat"
 						size:         "256M"
-						mountpoint:   "/boot"
+						mountpoint:   spec.bootMount
 					},
 					{
 						name:         "root"
@@ -48,6 +48,8 @@ import I "github.com/techcraftco/rpi-usb-gadget/images"
 			{
 				type: "shell"
 				inline: [
+					"rm /etc/resolv.conf",
+					"echo 'nameserver 1.1.1.1' > /etc/resolv.conf",
 					"sudo apt update",
 					"sudo apt install -y dnsmasq",
 				]

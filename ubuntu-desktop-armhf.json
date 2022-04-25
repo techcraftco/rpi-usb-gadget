@@ -24,7 +24,7 @@
 					"start_sector": "8192",
 					"filesystem": "vfat",
 					"size": "256M",
-					"mountpoint": "/boot"
+					"mountpoint": "/boot/firmware"
 				},
 				{
 					"name": "root",
@@ -46,6 +46,8 @@
 		{
 			"type": "shell",
 			"inline": [
+				"rm /etc/resolv.conf",
+				"echo 'nameserver 1.1.1.1' \u003e /etc/resolv.conf",
 				"sudo apt update",
 				"sudo apt install -y dnsmasq"
 			]
@@ -63,9 +65,8 @@
 		{
 			"type": "shell",
 			"inline": [
-				"echo 'dtoverlay=dwc2,dr_mode=peripheral' \u003e\u003e /boot/firmware/config.txt",
+				"echo '\ndtoverlay=dwc2,dr_mode=peripheral' \u003e\u003e /boot/firmware/config.txt",
 				"sed -i 's/rootwait/modules-load=dwc2,g_ether rootwait/' /boot/firmware/cmdline.txt",
-				"netplan apply",
 				"sed -i 's/#DNSMASQ_EXCEPT/DNSMASQ_EXCEPT/' /etc/default/dnsmasq "
 			]
 		}
