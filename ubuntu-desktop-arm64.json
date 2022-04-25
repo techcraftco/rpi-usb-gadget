@@ -5,7 +5,7 @@
 			"file_urls": [
 				"https://cdimage.ubuntu.com/releases/22.04/release/ubuntu-22.04-preinstalled-desktop-arm64+raspi.img.xz"
 			],
-			"file_checksum_url": "https://cdimage.ubuntu.com/releases/22.04/release/ubuntu-22.04-preinstalled-desktop-arm64+raspi.img.xz.sha256",
+			"file_checksum_url": "https://cdimage.ubuntu.com/releases/22.04/release/SHA256SUMS",
 			"file_checksum_type": "sha256",
 			"file_target_extension": "xz",
 			"file_unarchive_cmd": [
