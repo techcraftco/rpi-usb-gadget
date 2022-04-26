@@ -1,4 +1,4 @@
-Pre-built, Raspberry Pi images to simplify using the Pi as a USB gadget.
+Pre-built Raspberry Pi images to simplify using the Pi as a USB gadget.
 
 The basic Raspberry Pi OS images are a faithful reproduction of the work done by [Ben Hardill][bh],
 with some additional automation wrapped around to get to a publish release on GitHub.
@@ -15,7 +15,7 @@ Other operating systems are derived from the basic template used in Raspberry Pi
 
 ## Burning Your Image
 
-Since v0.2 images no longer have a default user/password. The recommened approach is to set the user/password during image burn with [Raspberry Pi Imager][rpimg].
+Since v0.2, images no longer have a default user/password. The recommened approach is to set the user/password during image burn with [Raspberry Pi Imager][rpimg].
 
 I have a video showing how to burn and customize an image here:
 
