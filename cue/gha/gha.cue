@@ -89,7 +89,7 @@ test: #BuildImageWorkflow & {images: I.images}
 							name: "Upload release asset"
 							env: GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 							run: """
-							gh release upload ${{github.ref}} \(image.zipPath)
+							gh release upload --clobber ${{github.ref}} \(image.zipPath)
 							"""
 						},
 
