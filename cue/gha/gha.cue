@@ -26,7 +26,10 @@ test: #BuildImageWorkflow & {images: I.images}
 					"upload-url": "${{ steps.create-release.outputs.upload_url }}"
 					id:           "${{steps.create-release.outputs.id}}"
 				}
-				steps: [ {
+				steps: [{
+					name: "Check out repo code"
+					uses: "actions/checkout@v2.3.4"
+				}, {
 					id:  "get_version"
 					run: "echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}"
 				}, {

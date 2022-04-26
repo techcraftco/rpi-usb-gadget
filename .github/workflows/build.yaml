@@ -18,6 +18,8 @@ jobs:
       id: ${{steps.create-release.outputs.id}}
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repo code
+        uses: actions/checkout@v2.3.4
       - id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
       - name: Create release
