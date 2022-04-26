@@ -59,15 +59,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload ${{github.ref}} raspios-desktop-arm64-2022-04-04-arm64.img.zip
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create-release.outputs.upload-url }}
-          asset_path: raspios-desktop-arm64-2022-04-04-arm64.img.zip
-          asset_name: raspios-desktop-arm64-2022-04-04-arm64.img.zip
-          asset_content_type: application/zip
   build-raspios-desktop-armhf:
     needs: create-release
     runs-on: ubuntu-latest
@@ -100,15 +91,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload ${{github.ref}} raspios-desktop-armhf-2022-04-04-armhf.img.zip
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create-release.outputs.upload-url }}
-          asset_path: raspios-desktop-armhf-2022-04-04-armhf.img.zip
-          asset_name: raspios-desktop-armhf-2022-04-04-armhf.img.zip
-          asset_content_type: application/zip
   build-raspios-lite-arm64:
     needs: create-release
     runs-on: ubuntu-latest
@@ -141,15 +123,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload ${{github.ref}} raspios-lite-arm64-2022-04-04-arm64.img.zip
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create-release.outputs.upload-url }}
-          asset_path: raspios-lite-arm64-2022-04-04-arm64.img.zip
-          asset_name: raspios-lite-arm64-2022-04-04-arm64.img.zip
-          asset_content_type: application/zip
   build-raspios-lite-armhf:
     needs: create-release
     runs-on: ubuntu-latest
@@ -182,15 +155,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload ${{github.ref}} raspios-lite-armhf-2022-04-04-armhf.img.zip
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create-release.outputs.upload-url }}
-          asset_path: raspios-lite-armhf-2022-04-04-armhf.img.zip
-          asset_name: raspios-lite-armhf-2022-04-04-armhf.img.zip
-          asset_content_type: application/zip
   build-ubuntu-server-arm64:
     needs: create-release
     runs-on: ubuntu-latest
@@ -223,15 +187,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload ${{github.ref}} ubuntu-server-arm64-22.04-arm64.img.zip
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create-release.outputs.upload-url }}
-          asset_path: ubuntu-server-arm64-22.04-arm64.img.zip
-          asset_name: ubuntu-server-arm64-22.04-arm64.img.zip
-          asset_content_type: application/zip
   build-ubuntu-server-armhf:
     needs: create-release
     runs-on: ubuntu-latest
@@ -264,15 +219,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload ${{github.ref}} ubuntu-server-armhf-22.04-armhf.img.zip
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create-release.outputs.upload-url }}
-          asset_path: ubuntu-server-armhf-22.04-armhf.img.zip
-          asset_name: ubuntu-server-armhf-22.04-armhf.img.zip
-          asset_content_type: application/zip
   build-ubuntu-desktop-arm64:
     needs: create-release
     runs-on: ubuntu-latest
@@ -305,15 +251,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload ${{github.ref}} ubuntu-desktop-arm64-22.04-arm64.img.zip
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create-release.outputs.upload-url }}
-          asset_path: ubuntu-desktop-arm64-22.04-arm64.img.zip
-          asset_name: ubuntu-desktop-arm64-22.04-arm64.img.zip
-          asset_content_type: application/zip
   build-ubuntu-desktop-armhf:
     needs: create-release
     runs-on: ubuntu-latest
@@ -346,12 +283,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload ${{github.ref}} ubuntu-desktop-armhf-22.04-armhf.img.zip
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create-release.outputs.upload-url }}
-          asset_path: ubuntu-desktop-armhf-22.04-armhf.img.zip
-          asset_name: ubuntu-desktop-armhf-22.04-armhf.img.zip
-          asset_content_type: application/zip
