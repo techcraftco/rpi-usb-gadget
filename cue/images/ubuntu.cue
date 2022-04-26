@@ -6,7 +6,8 @@ let variants = {
 	"server": ["arm64", "armhf"]
 
 	// there's no armhf desktop SHAs
-	"desktop": ["arm64"]
+	// the desktop images are too big for GitHub releases
+	// "desktop": ["arm64"]
 }
 
 let baseUrl = "https://cdimage.ubuntu.com"
