@@ -22,5 +22,6 @@ images: [string]: #ImageSpec & {
 	zipPath:     string
 	sources: [...string]
 	postSteps: [...string]
+	preSteps: [...string]
 	bootMount: string | *"/boot"
 }

@@ -14,6 +14,11 @@ let sources = [
 	"/usr/local/sbin/usbgadget.sh",
 ]
 
+let preSteps = [
+	"sudo apt update",
+	"sudo apt install -y dnsmasq",
+]
+
 let postSteps = [
 	"sudo chmod +x /usr/local/sbin/usbgadget.sh",
 	"sudo systemctl enable usbgadget.service",
@@ -47,6 +52,7 @@ let raspios = [ for v in _variants for a in _architectures {
 	path:    "\(_os)-\(variant)-\(arch)-\(_version)-\(arch).img"
 	"sources": sources
 	"postSteps": postSteps
+	"preSteps": preSteps
 }]
 
 for i in raspios {

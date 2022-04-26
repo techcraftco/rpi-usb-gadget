@@ -67,7 +67,9 @@
 			"inline": [
 				"echo '\ndtoverlay=dwc2,dr_mode=peripheral' \u003e\u003e /boot/firmware/config.txt",
 				"sed -i 's/rootwait/modules-load=dwc2,g_ether rootwait/' /boot/firmware/cmdline.txt",
-				"sed -i 's/#DNSMASQ_EXCEPT/DNSMASQ_EXCEPT/' /etc/default/dnsmasq "
+				"sed -i 's/#DNSMASQ_EXCEPT/DNSMASQ_EXCEPT/' /etc/default/dnsmasq ",
+				"echo port=0 \u003e\u003e /etc/dnsmasq.conf",
+				"echo interface=usb0 \u003e\u003e /etc/dnsmasq.conf"
 			]
 		}
 	]

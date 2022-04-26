@@ -47,12 +47,7 @@ import I "github.com/techcraftco/rpi-usb-gadget/images"
 		provisioners: [
 			{
 				type: "shell"
-				inline: [
-					"rm /etc/resolv.conf",
-					"echo 'nameserver 1.1.1.1' > /etc/resolv.conf",
-					"sudo apt update",
-					"sudo apt install -y dnsmasq",
-				]
+				inline: spec.preSteps
 			},
 
 			for _, path in spec.sources {

@@ -46,8 +46,6 @@
 		{
 			"type": "shell",
 			"inline": [
-				"rm /etc/resolv.conf",
-				"echo 'nameserver 1.1.1.1' \u003e /etc/resolv.conf",
 				"sudo apt update",
 				"sudo apt install -y dnsmasq"
 			]
