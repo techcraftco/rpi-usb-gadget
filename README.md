@@ -1,13 +1,17 @@
-Pre-built, Raspberry Pi OS-derived images to simplify using the Pi as a USB gadget.
+Pre-built, Raspberry Pi images to simplify using the Pi as a USB gadget.
 
-The basic USB gadget images are a faithful reproduction of the work done by [Ben Hardill][bh],
+The basic Raspberry Pi OS images are a faithful reproduction of the work done by [Ben Hardill][bh],
 with some additional automation wrapped around to get to a publish release on GitHub.
+
+Other operating systems are derived from the basic template used in Raspberry Pi OS.
 
 ## Available Images
 
-* Raspberry Pi OS
-  * Lite 
+* Raspberry Pi OS (`arm64` and `armhf`)
+  * Lite
   * Desktop 
+* Ubuntu (`arm64` and `armhf`)
+  * Server
 
 ## Burning Your Image
 
