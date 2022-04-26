@@ -14,7 +14,7 @@ let preSteps = [
 	"rm /etc/resolv.conf",
 	"echo 'nameserver 1.1.1.1' > /etc/resolv.conf",
 	"sudo apt update",
-	"sudo apt install -y dnsmasq"
+	"sudo apt install -y dnsmasq avahi-daemon"
 ]
 
 
