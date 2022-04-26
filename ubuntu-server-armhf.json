@@ -3,9 +3,9 @@
 		{
 			"type": "arm",
 			"file_urls": [
-				"https://downloads.raspberrypi.org/raspios_lite_arm64/images/raspios_lite_arm64-2022-04-07/2022-04-04-raspios-bullseye-arm64-lite.img.xz"
+				"https://cdimage.ubuntu.com/releases/22.04/release/ubuntu-22.04-preinstalled-server-armhf+raspi.img.xz"
 			],
-			"file_checksum_url": "https://downloads.raspberrypi.org/raspios_lite_arm64/images/raspios_lite_arm64-2022-04-07/2022-04-04-raspios-bullseye-arm64-lite.img.xz.sha256",
+			"file_checksum_url": "https://cdimage.ubuntu.com/releases/22.04/release/SHA256SUMS",
 			"file_checksum_type": "sha256",
 			"file_target_extension": "xz",
 			"file_unarchive_cmd": [
@@ -14,7 +14,7 @@
 				"$ARCHIVE_PATH"
 			],
 			"image_build_method": "reuse",
-			"image_path": "raspios-lite-arm64-2022-04-04-arm64.img",
+			"image_path": "ubuntu-server-armhf-22.04-armhf.img",
 			"image_size": "2G",
 			"image_type": "dos",
 			"image_partitions": [
@@ -24,7 +24,7 @@
 					"start_sector": "8192",
 					"filesystem": "vfat",
 					"size": "256M",
-					"mountpoint": "/boot"
+					"mountpoint": "/boot/firmware"
 				},
 				{
 					"name": "root",
@@ -46,8 +46,10 @@
 		{
 			"type": "shell",
 			"inline": [
+				"rm /etc/resolv.conf",
+				"echo 'nameserver 1.1.1.1' \u003e /etc/resolv.conf",
 				"sudo apt update",
-				"sudo apt install -y dnsmasq"
+				"sudo apt install -y dnsmasq avahi-daemon"
 			]
 		},
 		{
@@ -57,29 +59,17 @@
 		},
 		{
 			"type": "file",
-			"source": "sources//etc/network/interfaces.d/usb0",
-			"destination": "/etc/network/interfaces.d/usb0"
-		},
-		{
-			"type": "file",
-			"source": "sources//lib/systemd/system/usbgadget.service",
-			"destination": "/lib/systemd/system/usbgadget.service"
-		},
-		{
-			"type": "file",
-			"source": "sources//usr/local/sbin/usbgadget.sh",
-			"destination": "/usr/local/sbin/usbgadget.sh"
+			"source": "sources//etc/netplan/20-rpi-gadget.yaml",
+			"destination": "/etc/netplan/20-rpi-gadget.yaml"
 		},
 		{
 			"type": "shell",
 			"inline": [
-				"sudo chmod +x /usr/local/sbin/usbgadget.sh",
-				"sudo systemctl enable usbgadget.service",
-				"echo dtoverlay=dwc2 \u003e\u003e /boot/config.txt",
-				"echo libcomposite \u003e\u003e /etc/modules",
-				"sed -i 's/$/ modules-load=dwc2/' /boot/cmdline.txt",
-				"touch /boot/ssh",
-				"echo denyinterfaces usb0 \u003e\u003e /etc/dhcpcd.conf"
+				"echo '\ndtoverlay=dwc2,dr_mode=peripheral' \u003e\u003e /boot/firmware/config.txt",
+				"sed -i 's/rootwait/modules-load=dwc2,g_ether rootwait/' /boot/firmware/cmdline.txt",
+				"sed -i 's/#DNSMASQ_EXCEPT/DNSMASQ_EXCEPT/' /etc/default/dnsmasq ",
+				"echo port=0 \u003e\u003e /etc/dnsmasq.conf",
+				"echo interface=usb0 \u003e\u003e /etc/dnsmasq.conf"
 			]
 		},
 		{

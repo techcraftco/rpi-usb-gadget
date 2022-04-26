@@ -81,6 +81,10 @@
 				"touch /boot/ssh",
 				"echo denyinterfaces usb0 \u003e\u003e /etc/dhcpcd.conf"
 			]
+		},
+		{
+			"type": "shell",
+			"inline": "echo ::BUILD::SUCCESS"
 		}
 	]
 }

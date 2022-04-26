@@ -20,4 +20,8 @@ images: [string]: #ImageSpec & {
 	path:        string
 	compactName: string
 	zipPath:     string
+	sources: [...string]
+	postSteps: [...string]
+	preSteps: [...string]
+	bootMount: string | *"/boot"
 }
