@@ -73,7 +73,8 @@ jobs:
       - name: Build the image
         run: |-
           cp plugin/packer-builder-arm .
-          sudo packer build raspios-desktop-arm64.json || true
+          sudo packer build raspios-desktop-arm64.json | tee build.log || true
+          grep "::BUILD::SUCCESS" build.log
           test -f raspios-desktop-arm64-2022-04-04-arm64.img
           zip raspios-desktop-arm64-2022-04-04-arm64.img.zip raspios-desktop-arm64-2022-04-04-arm64.img
       - name: Upload release asset
@@ -109,7 +110,8 @@ jobs:
       - name: Build the image
         run: |-
           cp plugin/packer-builder-arm .
-          sudo packer build raspios-desktop-armhf.json || true
+          sudo packer build raspios-desktop-armhf.json | tee build.log || true
+          grep "::BUILD::SUCCESS" build.log
           test -f raspios-desktop-armhf-2022-04-04-armhf.img
           zip raspios-desktop-armhf-2022-04-04-armhf.img.zip raspios-desktop-armhf-2022-04-04-armhf.img
       - name: Upload release asset
@@ -145,7 +147,8 @@ jobs:
       - name: Build the image
         run: |-
           cp plugin/packer-builder-arm .
-          sudo packer build raspios-lite-arm64.json || true
+          sudo packer build raspios-lite-arm64.json | tee build.log || true
+          grep "::BUILD::SUCCESS" build.log
           test -f raspios-lite-arm64-2022-04-04-arm64.img
           zip raspios-lite-arm64-2022-04-04-arm64.img.zip raspios-lite-arm64-2022-04-04-arm64.img
       - name: Upload release asset
@@ -181,7 +184,8 @@ jobs:
       - name: Build the image
         run: |-
           cp plugin/packer-builder-arm .
-          sudo packer build raspios-lite-armhf.json || true
+          sudo packer build raspios-lite-armhf.json | tee build.log || true
+          grep "::BUILD::SUCCESS" build.log
           test -f raspios-lite-armhf-2022-04-04-armhf.img
           zip raspios-lite-armhf-2022-04-04-armhf.img.zip raspios-lite-armhf-2022-04-04-armhf.img
       - name: Upload release asset
@@ -217,7 +221,8 @@ jobs:
       - name: Build the image
         run: |-
           cp plugin/packer-builder-arm .
-          sudo packer build ubuntu-server-arm64.json || true
+          sudo packer build ubuntu-server-arm64.json | tee build.log || true
+          grep "::BUILD::SUCCESS" build.log
           test -f ubuntu-server-arm64-22.04-arm64.img
           zip ubuntu-server-arm64-22.04-arm64.img.zip ubuntu-server-arm64-22.04-arm64.img
       - name: Upload release asset
@@ -253,7 +258,8 @@ jobs:
       - name: Build the image
         run: |-
           cp plugin/packer-builder-arm .
-          sudo packer build ubuntu-server-armhf.json || true
+          sudo packer build ubuntu-server-armhf.json | tee build.log || true
+          grep "::BUILD::SUCCESS" build.log
           test -f ubuntu-server-armhf-22.04-armhf.img
           zip ubuntu-server-armhf-22.04-armhf.img.zip ubuntu-server-armhf-22.04-armhf.img
       - name: Upload release asset
@@ -289,7 +295,8 @@ jobs:
       - name: Build the image
         run: |-
           cp plugin/packer-builder-arm .
-          sudo packer build ubuntu-desktop-arm64.json || true
+          sudo packer build ubuntu-desktop-arm64.json | tee build.log || true
+          grep "::BUILD::SUCCESS" build.log
           test -f ubuntu-desktop-arm64-22.04-arm64.img
           zip ubuntu-desktop-arm64-22.04-arm64.img.zip ubuntu-desktop-arm64-22.04-arm64.img
       - name: Upload release asset
@@ -325,7 +332,8 @@ jobs:
       - name: Build the image
         run: |-
           cp plugin/packer-builder-arm .
-          sudo packer build ubuntu-desktop-armhf.json || true
+          sudo packer build ubuntu-desktop-armhf.json | tee build.log || true
+          grep "::BUILD::SUCCESS" build.log
           test -f ubuntu-desktop-armhf-22.04-armhf.img
           zip ubuntu-desktop-armhf-22.04-armhf.img.zip ubuntu-desktop-armhf-22.04-armhf.img
       - name: Upload release asset

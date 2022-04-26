@@ -71,6 +71,10 @@
 				"echo port=0 \u003e\u003e /etc/dnsmasq.conf",
 				"echo interface=usb0 \u003e\u003e /etc/dnsmasq.conf"
 			]
+		},
+		{
+			"type": "shell",
+			"inline": "echo ::BUILD::SUCCESS"
 		}
 	]
 }

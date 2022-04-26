@@ -82,7 +82,8 @@ test: #BuildImageWorkflow & {images: I.images}
 							name: "Build the image"
 							run:  """
 						cp plugin/packer-builder-arm .
-						sudo packer build \(image.compactName).json || true
+						sudo packer build \(image.compactName).json | tee build.log || true
+						grep "::BUILD::SUCCESS" build.log
 						test -f \(image.path)
 						zip \(image.zipPath) \(image.path)
 						"""

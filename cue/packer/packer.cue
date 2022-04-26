@@ -60,6 +60,16 @@ import I "github.com/techcraftco/rpi-usb-gadget/images"
 				type: "shell"
 				inline: spec.postSteps
 			},
+
+			{
+				// this is a nasty hack
+				// the builds always 'fail' because of the optional `fuser`
+				// command exiting with 1.
+				// we check for this content in the logs to see if
+				// actually built the image
+				type: "shell"
+				inline: "echo ::BUILD::SUCCESS"
+			}
 		]
 	}
 }
