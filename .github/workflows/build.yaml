@@ -251,35 +251,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload ${{github.ref}} ubuntu-desktop-arm64-22.04-arm64.img.zip
-  build-ubuntu-desktop-armhf:
-    needs: create-release
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-go@v2.1.3
-        with:
-          go-version: "1.16"
-      - name: Check out repo code
-        uses: actions/checkout@v2.3.4
-      - name: Use latest Packer
-        uses: hashicorp-contrib/setup-packer@v1
-      - name: Fetch additional packages
-        run: |-
-          sudo apt-get update
-          sudo apt-get install tree fdisk gdisk qemu-user-static libarchive-tools psmisc tar autoconf make
-      - name: Get packer-build-arm plugin
-        run: |-
-          git clone https://github.com/mkaczanowski/packer-builder-arm plugin
-          cd plugin
-          go mod download
-          go build
-      - name: Build the image
-        run: |-
-          cp plugin/packer-builder-arm .
-          sudo packer build ubuntu-desktop-armhf.json | tee build.log || true
-          grep "::BUILD::SUCCESS" build.log
-          test -f ubuntu-desktop-armhf-22.04-armhf.img
-          zip ubuntu-desktop-armhf-22.04-armhf.img.zip ubuntu-desktop-armhf-22.04-armhf.img
-      - name: Upload release asset
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload ${{github.ref}} ubuntu-desktop-armhf-22.04-armhf.img.zip

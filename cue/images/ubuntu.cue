@@ -1,8 +1,13 @@
 package images
 
 let version = "22.04"
-let variants = ["server", "desktop"]
-let architectures = ["arm64", "armhf"]
+
+let variants = {
+	"server": ["arm64", "armhf"]
+
+	// there's no armhf desktop SHAs
+	"desktop": ["arm64"]
+}
 
 let baseUrl = "https://cdimage.ubuntu.com"
 
@@ -25,7 +30,7 @@ let postSteps = [
 	"echo interface=usb0 >> /etc/dnsmasq.conf",
 ]
 
-let ubuntu = [ for v in variants for a in architectures {
+let ubuntu = [ for v, as in variants for a in as {
 	os:          "ubuntu"
 	arch:        a
 	variant:     v
