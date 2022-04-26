@@ -2,8 +2,6 @@ package gha
 
 import I "github.com/techcraftco/rpi-usb-gadget/images"
 
-import "list"
-
 test: #BuildImageWorkflow & {images: I.images}
 
 #BuildImageWorkflow: {
@@ -26,21 +24,18 @@ test: #BuildImageWorkflow & {images: I.images}
 			"create-release": {
 				outputs: {
 					"upload-url": "${{ steps.create-release.outputs.upload_url }}"
-					id: "${{steps.create-release.outputs.id}}"
+					id:           "${{steps.create-release.outputs.id}}"
 				}
 				steps: [ {
+					id:  "get_version"
+					run: "echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}"
+				}, {
 					name: "Create release"
 					id:   "create-release"
-					//if:   "startsWith(github.ref, 'refs/tags/v')"
-					uses: "actions/create-release@v1"
 					env: GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-					with: {
-						tag_name:     "${{ github.ref }}"
-						release_name: "Raspberry Pi OS USB Gadget ${{ steps.get_version.outputs.VERSION }}"
-						body:         "Raspberry Pi OS Lite & Desktop with USB OTG configuration."
-						draft:        true
-						prerelease:   false
-					}
+					run: """
+						gh release create ${{github.ref}} --draft --title "Raspberry Pi USB-C Gadget"
+						"""
 				},
 				]
 
@@ -87,6 +82,12 @@ test: #BuildImageWorkflow & {images: I.images}
 						test -f \(image.path)
 						zip \(image.zipPath) \(image.path)
 						"""
+						}, {
+							name: "Upload release asset"
+							env: GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+							run: """
+							gh release upload ${{github.ref}} \(image.zipPath)
+							"""
 						},
 						{
 							name: "Upload release asset"
@@ -101,23 +102,9 @@ test: #BuildImageWorkflow & {images: I.images}
 							}
 						},
 
-
 					]
 				}
 
-				"publish-release": {
-					let buildJobs = [for name,_ in I.images {"build-\(name)"}]
-					needs: list.FlattenN(["create-release", buildJobs], 1)
-					steps: [
-						{
-							name: "Publish release"
-							if:   "startsWith(github.ref, 'refs/tags/v')"
-							uses: "StuYarrow/publish-release@v1"
-							env: GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-							with: id:          "${{ needs.create-release.outputs.id }}"
-						},
-					]
-				}
 			}
 		}
 

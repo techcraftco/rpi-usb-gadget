@@ -18,37 +18,13 @@ jobs:
       id: ${{steps.create-release.outputs.id}}
     runs-on: ubuntu-latest
     steps:
+      - id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
       - name: Create release
         id: create-release
-        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Raspberry Pi OS USB Gadget ${{ steps.get_version.outputs.VERSION }}
-          body: Raspberry Pi OS Lite & Desktop with USB OTG configuration.
-          draft: true
-          prerelease: false
-  publish-release:
-    needs:
-      - create-release
-      - build-raspios-desktop-arm64
-      - build-raspios-desktop-armhf
-      - build-raspios-lite-arm64
-      - build-raspios-lite-armhf
-      - build-ubuntu-server-arm64
-      - build-ubuntu-server-armhf
-      - build-ubuntu-desktop-arm64
-      - build-ubuntu-desktop-armhf
-    runs-on: ubuntu-latest
-    steps:
-      - name: Publish release
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: StuYarrow/publish-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          id: ${{ needs.create-release.outputs.id }}
+        run: gh release create ${{github.ref}} --draft --title "Raspberry Pi USB-C Gadget"
   build-raspios-desktop-arm64:
     needs: create-release
     runs-on: ubuntu-latest
@@ -77,6 +53,10 @@ jobs:
           grep "::BUILD::SUCCESS" build.log
           test -f raspios-desktop-arm64-2022-04-04-arm64.img
           zip raspios-desktop-arm64-2022-04-04-arm64.img.zip raspios-desktop-arm64-2022-04-04-arm64.img
+      - name: Upload release asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{github.ref}} raspios-desktop-arm64-2022-04-04-arm64.img.zip
       - name: Upload release asset
         uses: actions/upload-release-asset@v1
         env:
@@ -115,6 +95,10 @@ jobs:
           test -f raspios-desktop-armhf-2022-04-04-armhf.img
           zip raspios-desktop-armhf-2022-04-04-armhf.img.zip raspios-desktop-armhf-2022-04-04-armhf.img
       - name: Upload release asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{github.ref}} raspios-desktop-armhf-2022-04-04-armhf.img.zip
+      - name: Upload release asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -151,6 +135,10 @@ jobs:
           grep "::BUILD::SUCCESS" build.log
           test -f raspios-lite-arm64-2022-04-04-arm64.img
           zip raspios-lite-arm64-2022-04-04-arm64.img.zip raspios-lite-arm64-2022-04-04-arm64.img
+      - name: Upload release asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{github.ref}} raspios-lite-arm64-2022-04-04-arm64.img.zip
       - name: Upload release asset
         uses: actions/upload-release-asset@v1
         env:
@@ -189,6 +177,10 @@ jobs:
           test -f raspios-lite-armhf-2022-04-04-armhf.img
           zip raspios-lite-armhf-2022-04-04-armhf.img.zip raspios-lite-armhf-2022-04-04-armhf.img
       - name: Upload release asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{github.ref}} raspios-lite-armhf-2022-04-04-armhf.img.zip
+      - name: Upload release asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -225,6 +217,10 @@ jobs:
           grep "::BUILD::SUCCESS" build.log
           test -f ubuntu-server-arm64-22.04-arm64.img
           zip ubuntu-server-arm64-22.04-arm64.img.zip ubuntu-server-arm64-22.04-arm64.img
+      - name: Upload release asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{github.ref}} ubuntu-server-arm64-22.04-arm64.img.zip
       - name: Upload release asset
         uses: actions/upload-release-asset@v1
         env:
@@ -263,6 +259,10 @@ jobs:
           test -f ubuntu-server-armhf-22.04-armhf.img
           zip ubuntu-server-armhf-22.04-armhf.img.zip ubuntu-server-armhf-22.04-armhf.img
       - name: Upload release asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{github.ref}} ubuntu-server-armhf-22.04-armhf.img.zip
+      - name: Upload release asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -300,6 +300,10 @@ jobs:
           test -f ubuntu-desktop-arm64-22.04-arm64.img
           zip ubuntu-desktop-arm64-22.04-arm64.img.zip ubuntu-desktop-arm64-22.04-arm64.img
       - name: Upload release asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{github.ref}} ubuntu-desktop-arm64-22.04-arm64.img.zip
+      - name: Upload release asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -336,6 +340,10 @@ jobs:
           grep "::BUILD::SUCCESS" build.log
           test -f ubuntu-desktop-armhf-22.04-armhf.img
           zip ubuntu-desktop-armhf-22.04-armhf.img.zip ubuntu-desktop-armhf-22.04-armhf.img
+      - name: Upload release asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{github.ref}} ubuntu-desktop-armhf-22.04-armhf.img.zip
       - name: Upload release asset
         uses: actions/upload-release-asset@v1
         env:

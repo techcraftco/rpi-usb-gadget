@@ -46,7 +46,7 @@ import I "github.com/techcraftco/rpi-usb-gadget/images"
 		]
 		provisioners: [
 			{
-				type: "shell"
+				type:   "shell"
 				inline: spec.preSteps
 			},
 
@@ -57,7 +57,7 @@ import I "github.com/techcraftco/rpi-usb-gadget/images"
 			},
 
 			{
-				type: "shell"
+				type:   "shell"
 				inline: spec.postSteps
 			},
 
@@ -67,9 +67,9 @@ import I "github.com/techcraftco/rpi-usb-gadget/images"
 				// command exiting with 1.
 				// we check for this content in the logs to see if
 				// actually built the image
-				type: "shell"
+				type:   "shell"
 				inline: "echo ::BUILD::SUCCESS"
-			}
+			},
 		]
 	}
 }

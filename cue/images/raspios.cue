@@ -44,15 +44,15 @@ let raspios = [ for v in _variants for a in _architectures {
 		{"-\(v)"},
 
 	][0]
-	os:      _os
-	arch:    a
-	variant: v
-	url:     "\(baseUrl)/\(imgDir)/images/\(imgDir)-\(_distVersion)/\(_version)-raspios-bullseye-\(arch)\(nameSuffix).img.xz"
-	shaUrl:  "\(url).sha256"
-	path:    "\(_os)-\(variant)-\(arch)-\(_version)-\(arch).img"
-	"sources": sources
+	os:          _os
+	arch:        a
+	variant:     v
+	url:         "\(baseUrl)/\(imgDir)/images/\(imgDir)-\(_distVersion)/\(_version)-raspios-bullseye-\(arch)\(nameSuffix).img.xz"
+	shaUrl:      "\(url).sha256"
+	path:        "\(_os)-\(variant)-\(arch)-\(_version)-\(arch).img"
+	"sources":   sources
 	"postSteps": postSteps
-	"preSteps": preSteps
+	"preSteps":  preSteps
 }]
 
 for i in raspios {

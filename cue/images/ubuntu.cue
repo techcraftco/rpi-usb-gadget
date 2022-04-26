@@ -14,29 +14,28 @@ let preSteps = [
 	"rm /etc/resolv.conf",
 	"echo 'nameserver 1.1.1.1' > /etc/resolv.conf",
 	"sudo apt update",
-	"sudo apt install -y dnsmasq avahi-daemon"
+	"sudo apt install -y dnsmasq avahi-daemon",
 ]
-
 
 let postSteps = [
 	"echo '\ndtoverlay=dwc2,dr_mode=peripheral' >> /boot/firmware/config.txt",
 	"sed -i 's/rootwait/modules-load=dwc2,g_ether rootwait/' /boot/firmware/cmdline.txt",
 	"sed -i 's/#DNSMASQ_EXCEPT/DNSMASQ_EXCEPT/' /etc/default/dnsmasq ",
 	"echo port=0 >> /etc/dnsmasq.conf",
-	"echo interface=usb0 >> /etc/dnsmasq.conf"
+	"echo interface=usb0 >> /etc/dnsmasq.conf",
 ]
 
-let ubuntu = [for v in variants for a in architectures {
-	os:      "ubuntu"
-	arch:    a
-	variant: v
-	url:     "\(baseUrl)/releases/\(version)/release/\(os)-\(version)-preinstalled-\(variant)-\(arch)+raspi.img.xz"
-	shaUrl:  "\(baseUrl)/releases/\(version)/release/SHA256SUMS"
-	path:    "\(os)-\(variant)-\(arch)-\(version)-\(arch).img"
-	"sources": sources
+let ubuntu = [ for v in variants for a in architectures {
+	os:          "ubuntu"
+	arch:        a
+	variant:     v
+	url:         "\(baseUrl)/releases/\(version)/release/\(os)-\(version)-preinstalled-\(variant)-\(arch)+raspi.img.xz"
+	shaUrl:      "\(baseUrl)/releases/\(version)/release/SHA256SUMS"
+	path:        "\(os)-\(variant)-\(arch)-\(version)-\(arch).img"
+	"sources":   sources
 	"postSteps": postSteps
-	"preSteps": preSteps
-	bootMount: "/boot/firmware"
+	"preSteps":  preSteps
+	bootMount:   "/boot/firmware"
 }]
 
 for i in ubuntu {
