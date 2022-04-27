@@ -61,23 +61,11 @@
 			"destination": "/etc/network/interfaces.d/usb0"
 		},
 		{
-			"type": "file",
-			"source": "sources//lib/systemd/system/usbgadget.service",
-			"destination": "/lib/systemd/system/usbgadget.service"
-		},
-		{
-			"type": "file",
-			"source": "sources//usr/local/sbin/usbgadget.sh",
-			"destination": "/usr/local/sbin/usbgadget.sh"
-		},
-		{
 			"type": "shell",
 			"inline": [
-				"sudo chmod +x /usr/local/sbin/usbgadget.sh",
-				"sudo systemctl enable usbgadget.service",
-				"echo dtoverlay=dwc2 \u003e\u003e /boot/config.txt",
+				"echo dtoverlay=dwc2,dr_mode=peripheral \u003e\u003e /boot/config.txt",
 				"echo libcomposite \u003e\u003e /etc/modules",
-				"sed -i 's/$/ modules-load=dwc2/' /boot/cmdline.txt",
+				"sed -i 's/$/ modules-load=dwc2,g_ether/' /boot/cmdline.txt",
 				"touch /boot/ssh",
 				"echo denyinterfaces usb0 \u003e\u003e /etc/dhcpcd.conf"
 			]
