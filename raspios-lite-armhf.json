@@ -64,7 +64,6 @@
 			"type": "shell",
 			"inline": [
 				"echo dtoverlay=dwc2,dr_mode=peripheral \u003e\u003e /boot/config.txt",
-				"echo libcomposite \u003e\u003e /etc/modules",
 				"sed -i 's/$/ modules-load=dwc2,g_ether/' /boot/cmdline.txt",
 				"touch /boot/ssh",
 				"echo denyinterfaces usb0 \u003e\u003e /etc/dhcpcd.conf"

@@ -19,7 +19,6 @@ let preSteps = [
 
 let postSteps = [
 	"echo dtoverlay=dwc2,dr_mode=peripheral >> /boot/config.txt",
-	"echo libcomposite >> /etc/modules",
 	"sed -i 's/$/ modules-load=dwc2,g_ether/' /boot/cmdline.txt",
 	"touch /boot/ssh",
 	"echo denyinterfaces usb0 >> /etc/dhcpcd.conf",
