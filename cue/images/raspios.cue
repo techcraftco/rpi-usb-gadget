@@ -10,8 +10,6 @@ _version:     "2022-04-04"
 let sources = [
 	"/etc/dnsmasq.d/usb0",
 	"/etc/network/interfaces.d/usb0",
-	"/lib/systemd/system/usbgadget.service",
-	"/usr/local/sbin/usbgadget.sh",
 ]
 
 let preSteps = [
@@ -20,11 +18,8 @@ let preSteps = [
 ]
 
 let postSteps = [
-	"sudo chmod +x /usr/local/sbin/usbgadget.sh",
-	"sudo systemctl enable usbgadget.service",
-	"echo dtoverlay=dwc2 >> /boot/config.txt",
-	"echo libcomposite >> /etc/modules",
-	"sed -i 's/$/ modules-load=dwc2/' /boot/cmdline.txt",
+	"echo dtoverlay=dwc2,dr_mode=peripheral >> /boot/config.txt",
+	"sed -i 's/$/ modules-load=dwc2,g_ether/' /boot/cmdline.txt",
 	"touch /boot/ssh",
 	"echo denyinterfaces usb0 >> /etc/dhcpcd.conf",
 ]
