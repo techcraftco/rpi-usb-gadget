@@ -50,7 +50,7 @@ test: #BuildImageWorkflow & {images: I.images}
 					steps: [
 						{
 							uses: "actions/setup-go@v2.1.3"
-							with: "go-version": "1.16"
+							with: "go-version": "1.18"
 						},
 						{
 							name: "Check out repo code"
