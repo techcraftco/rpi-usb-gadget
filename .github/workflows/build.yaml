@@ -117,12 +117,12 @@ jobs:
           cp plugin/packer-builder-arm .
           sudo packer build raspios-lite-arm64.json | tee build.log || true
           grep "::BUILD::SUCCESS" build.log
-          test -f raspios-lite-arm64-2022-04-04-arm64.img
-          zip raspios-lite-arm64-2022-04-04-arm64.img.zip raspios-lite-arm64-2022-04-04-arm64.img
+          test -f raspios-lite-arm64-2023-12-11-arm64.img
+          zip raspios-lite-arm64-2023-12-11-arm64.img.zip raspios-lite-arm64-2023-12-11-arm64.img
       - name: Upload release asset
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload --clobber ${{github.ref}} raspios-lite-arm64-2022-04-04-arm64.img.zip
+        run: gh release upload --clobber ${{github.ref}} raspios-lite-arm64-2023-12-11-arm64.img.zip
   build-raspios-lite-armhf:
     needs: create-release
     runs-on: ubuntu-latest
