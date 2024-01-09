@@ -1,4 +1,6 @@
-Pre-built Raspberry Pi images to simplify using the Pi as a USB gadget.
+# Pre-built Raspberry Pi images to simplify using the Pi as a USB gadget.
+
+- The IP to connect to is: 10.55.0.1
 
 The basic Raspberry Pi OS images are a faithful reproduction of the work done by [Ben Hardill][bh],
 with some additional automation wrapped around to get to a publish release on GitHub.
