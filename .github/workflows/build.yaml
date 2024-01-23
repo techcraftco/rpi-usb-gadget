@@ -53,12 +53,12 @@ jobs:
           cp plugin/packer-builder-arm .
           sudo packer build raspios-desktop-arm64.json | tee build.log || true
           grep "::BUILD::SUCCESS" build.log
-          test -f raspios-desktop-arm64-2022-04-04-arm64.img
-          zip raspios-desktop-arm64-2022-04-04-arm64.img.zip raspios-desktop-arm64-2022-04-04-arm64.img
+          test -f raspios-desktop-arm64-2023-12-06-arm64.img
+          zip raspios-desktop-arm64-2023-12-06-arm64.img.zip raspios-desktop-arm64-2023-12-06-arm64.img
       - name: Upload release asset
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload --clobber ${{github.ref}} raspios-desktop-arm64-2022-04-04-arm64.img.zip
+        run: gh release upload --clobber ${{github.ref}} raspios-desktop-arm64-2023-12-06-arm64.img.zip
   build-raspios-desktop-armhf:
     needs: create-release
     runs-on: ubuntu-latest
@@ -85,12 +85,12 @@ jobs:
           cp plugin/packer-builder-arm .
           sudo packer build raspios-desktop-armhf.json | tee build.log || true
           grep "::BUILD::SUCCESS" build.log
-          test -f raspios-desktop-armhf-2022-04-04-armhf.img
-          zip raspios-desktop-armhf-2022-04-04-armhf.img.zip raspios-desktop-armhf-2022-04-04-armhf.img
+          test -f raspios-desktop-armhf-2023-12-06-armhf.img
+          zip raspios-desktop-armhf-2023-12-06-armhf.img.zip raspios-desktop-armhf-2023-12-06-armhf.img
       - name: Upload release asset
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload --clobber ${{github.ref}} raspios-desktop-armhf-2022-04-04-armhf.img.zip
+        run: gh release upload --clobber ${{github.ref}} raspios-desktop-armhf-2023-12-06-armhf.img.zip
   build-raspios-lite-arm64:
     needs: create-release
     runs-on: ubuntu-latest
@@ -117,12 +117,12 @@ jobs:
           cp plugin/packer-builder-arm .
           sudo packer build raspios-lite-arm64.json | tee build.log || true
           grep "::BUILD::SUCCESS" build.log
-          test -f raspios-lite-arm64-2022-04-04-arm64.img
-          zip raspios-lite-arm64-2022-04-04-arm64.img.zip raspios-lite-arm64-2022-04-04-arm64.img
+          test -f raspios-lite-arm64-2023-12-11-arm64.img
+          zip raspios-lite-arm64-2023-12-11-arm64.img.zip raspios-lite-arm64-2023-12-11-arm64.img
       - name: Upload release asset
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload --clobber ${{github.ref}} raspios-lite-arm64-2022-04-04-arm64.img.zip
+        run: gh release upload --clobber ${{github.ref}} raspios-lite-arm64-2023-12-11-arm64.img.zip
   build-raspios-lite-armhf:
     needs: create-release
     runs-on: ubuntu-latest
@@ -149,12 +149,12 @@ jobs:
           cp plugin/packer-builder-arm .
           sudo packer build raspios-lite-armhf.json | tee build.log || true
           grep "::BUILD::SUCCESS" build.log
-          test -f raspios-lite-armhf-2022-04-04-armhf.img
-          zip raspios-lite-armhf-2022-04-04-armhf.img.zip raspios-lite-armhf-2022-04-04-armhf.img
+          test -f raspios-lite-armhf-2023-12-11-armhf.img
+          zip raspios-lite-armhf-2023-12-11-armhf.img.zip raspios-lite-armhf-2023-12-11-armhf.img
       - name: Upload release asset
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload --clobber ${{github.ref}} raspios-lite-armhf-2022-04-04-armhf.img.zip
+        run: gh release upload --clobber ${{github.ref}} raspios-lite-armhf-2023-12-11-armhf.img.zip
   build-ubuntu-server-arm64:
     needs: create-release
     runs-on: ubuntu-latest
@@ -181,12 +181,12 @@ jobs:
           cp plugin/packer-builder-arm .
           sudo packer build ubuntu-server-arm64.json | tee build.log || true
           grep "::BUILD::SUCCESS" build.log
-          test -f ubuntu-server-arm64-22.04-arm64.img
-          zip ubuntu-server-arm64-22.04-arm64.img.zip ubuntu-server-arm64-22.04-arm64.img
+          test -f ubuntu-server-arm64-22.04.3-arm64.img
+          zip ubuntu-server-arm64-22.04.3-arm64.img.zip ubuntu-server-arm64-22.04.3-arm64.img
       - name: Upload release asset
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload --clobber ${{github.ref}} ubuntu-server-arm64-22.04-arm64.img.zip
+        run: gh release upload --clobber ${{github.ref}} ubuntu-server-arm64-22.04.3-arm64.img.zip
   build-ubuntu-server-armhf:
     needs: create-release
     runs-on: ubuntu-latest
@@ -213,9 +213,9 @@ jobs:
           cp plugin/packer-builder-arm .
           sudo packer build ubuntu-server-armhf.json | tee build.log || true
           grep "::BUILD::SUCCESS" build.log
-          test -f ubuntu-server-armhf-22.04-armhf.img
-          zip ubuntu-server-armhf-22.04-armhf.img.zip ubuntu-server-armhf-22.04-armhf.img
+          test -f ubuntu-server-armhf-22.04.3-armhf.img
+          zip ubuntu-server-armhf-22.04.3-armhf.img.zip ubuntu-server-armhf-22.04.3-armhf.img
       - name: Upload release asset
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload --clobber ${{github.ref}} ubuntu-server-armhf-22.04-armhf.img.zip
+        run: gh release upload --clobber ${{github.ref}} ubuntu-server-armhf-22.04.3-armhf.img.zip
